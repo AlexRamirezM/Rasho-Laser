@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/EditorGrid.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MinotauroControl.cs">
     <Files>
-      <File FileName="Assets/Assest store/Fantasy Art Package/Sources/Models/Miner/AnimationSpeed.js" Line="4" Column="4" />
-      <File FileName="Assets/Scripts/EditorGrid.cs" Line="7" Column="28" />
+      <File FileName="Assets/Scripts/Tiempo.cs" Line="3" Column="1" />
+      <File FileName="Assets/Scripts/MinotauroControl.cs" Line="7" Column="21" />
+      <File FileName="Assets/Scripts/EditorGrid.cs" Line="19" Column="44" />
+      <File FileName="Assets/Scripts/LaserMov.cs" Line="27" Column="4" />
+      <File FileName="Assets/Scripts/SpawnerT1.cs" Line="8" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

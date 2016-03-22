@@ -49,6 +49,10 @@
      <Compile Include="Assets\Assest store\GemExample\Scripts\Orbit.cs" />
      <Compile Include="Assets\Assest store\Minotaur\Script\RotateObject.cs" />
      <Compile Include="Assets\Scripts\EditorGrid.cs" />
+     <Compile Include="Assets\Scripts\LaserMov.cs" />
+     <Compile Include="Assets\Scripts\MinotauroControl.cs" />
+     <Compile Include="Assets\Scripts\SpawnerT1.cs" />
+     <Compile Include="Assets\Scripts\Tiempo.cs" />
      <None Include="Assets\Assest store\Gem\Shaders\Gem.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
