@@ -12,12 +12,24 @@ public class MinotauroControl : MonoBehaviour {
 	Rigidbody rigidbody;
 	Quaternion rot = new Quaternion ();
 
+
+	public Text TimeText;
+	private float tiempo=0f;
+	public int Minutos, segundos;
+
 	void Start () {
 		rigidbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		tiempo += Time.deltaTime;
+		Minutos = (int)tiempo / 60;
+		segundos = (int)tiempo - (Minutos * 60);
+
+
+
 		if (respawntime <=0) {
 			bandera = 1;
 			float movh = Input.GetAxis ("Horizontal");
@@ -40,15 +52,16 @@ public class MinotauroControl : MonoBehaviour {
 				respawntime = 0;
 
 			}
-			resptext.text = respawntime.ToString ();
 
+			float redo = Mathf.Round (respawntime);
+			resptext.text = redo.ToString ();
 		}
 
 	}
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Laser" && bandera==1) {
 			//Intervalotime debe ser 1 + el numero de minutos transcurridos.
-			respawntime = 5;
+			respawntime = 0.5f+Minutos*1.5f;;
 
 			bandera = 0;
 
