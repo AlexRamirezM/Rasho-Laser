@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class LaserMov : MonoBehaviour {
-	private float velz = 20;
+	private float velz = 0;
 	private float velx = 20;
 	Quaternion rot = new Quaternion ();
 	// Use this for initialization
@@ -27,9 +27,19 @@ public class LaserMov : MonoBehaviour {
 		}
 		if (collision.gameObject.tag == "Limihori")
 		{
+			
 			velx = velx * (-1);
 		}
+		if (collision.gameObject.tag == "CuboDestructible" || collision.gameObject.tag == "Player" || collision.gameObject.tag == "CuboIndestructible")
+		{
+			Destroy (gameObject);
+		}
 
+		if (collision.gameObject.tag == "Espejo")
+		{
+			//Cambia de dirección 90 grados hacia arriba o hacia abajo dependiendo la dirección del espejo
+
+		}
 
 
 		}

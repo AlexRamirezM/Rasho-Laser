@@ -48,8 +48,14 @@
      <Compile Include="Assets\Assest store\GemExample\Scripts\DemoTimeOfDay.cs" />
      <Compile Include="Assets\Assest store\GemExample\Scripts\Orbit.cs" />
      <Compile Include="Assets\Assest store\Minotaur\Script\RotateObject.cs" />
+     <Compile Include="Assets\Scripts\ConstructorControl.cs" />
+     <Compile Include="Assets\Scripts\DestroyBomb.cs" />
+     <Compile Include="Assets\Scripts\DestruirObject.cs" />
      <Compile Include="Assets\Scripts\EditorGrid.cs" />
      <Compile Include="Assets\Scripts\LaserMov.cs" />
+     <Compile Include="Assets\Scripts\LaserMov2.cs" />
+     <Compile Include="Assets\Scripts\LaserMov3.cs" />
+     <Compile Include="Assets\Scripts\LaserMov4.cs" />
      <Compile Include="Assets\Scripts\MinotauroControl.cs" />
      <Compile Include="Assets\Scripts\SpawnerT1.cs" />
      <Compile Include="Assets\Scripts\Tiempo.cs" />
