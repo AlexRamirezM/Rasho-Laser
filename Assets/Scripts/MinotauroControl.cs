@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MinotauroControl : MonoBehaviour {
 	private float vel = 10;
 	float respawntime=5;
-
+	float inmunity=0;
 	int unav=1;
 	float animtime;
 	public Text resptext;
@@ -35,7 +35,7 @@ public class MinotauroControl : MonoBehaviour {
 
 
 		if (respawntime <=0) {
-			
+			resptext.text = " ";
 			unav = 1;
 			float movh = Input.GetAxis ("Horizontal");
 			float movv = Input.GetAxis ("Vertical");
@@ -83,9 +83,20 @@ public class MinotauroControl : MonoBehaviour {
 				posact.z = (Mathf.Round(transform.position.z / 2) * 2)+sz;
 				posact.y = 2;
 
-				if(posact.x<20 && posact.x>-12 && posact.z<12 && posact.z>-12 ){
-				Instantiate (Laserbomb, posact, Quaternion.identity);
+				if (posact.x >= 20  ) {
+					posact.x=18;
 				}
+				if (posact.x <= -12) {
+					posact.x=-10;
+				}
+				if (posact.z >= 12) {
+					posact.z = 10;
+				}
+				if (posact.z <= -12) {
+					posact.z=-10;
+				}
+				Instantiate (Laserbomb, posact, Quaternion.identity);
+				
 
 
 			}
@@ -99,6 +110,7 @@ public class MinotauroControl : MonoBehaviour {
 			respawntime -= Time.deltaTime;
 			if (respawntime <= 0) {
 				transform.position= (new Vector3 (-10, 0, -10));
+				inmunity = 2;
 				respawntime = 0;
 
 			}
@@ -106,10 +118,14 @@ public class MinotauroControl : MonoBehaviour {
 			float redo = Mathf.Round (respawntime);
 			resptext.text = redo.ToString ();
 		}
+		if (inmunity >= 0) {
+			inmunity -= Time.deltaTime;
+			resptext.text = "Inmunity";
+		} 
 
 	}
 	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.tag == "Laser" && unav==1) {
+		if (collision.gameObject.tag == "Laser" && unav==1 && inmunity<=0) {
 			//Intervalotime debe ser 1 + el numero de minutos transcurridos.
 			respawntime = 1f+Minutos*1.5f;;
 

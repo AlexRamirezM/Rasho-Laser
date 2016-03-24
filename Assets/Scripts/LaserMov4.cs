@@ -13,6 +13,17 @@ public class LaserMov4 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 mov = new Vector3 (velx,0,velz);
+		if (velx == 0) {
+			var encaja= transform.position;
+			encaja.x = Mathf.Round (encaja.x/2)*2;
+			transform.position = encaja;
+		}
+		if (velz == 0) {
+			var encaja= transform.position;
+			encaja.z = Mathf.Round (encaja.z/2)*2;
+			transform.position = encaja;
+
+		}
 		transform.position += mov*Time.deltaTime;
 		rot.SetLookRotation (mov);
 		transform.rotation = rot;
@@ -34,10 +45,25 @@ public class LaserMov4 : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
-		if (collision.gameObject.tag == "Espejo")
+		if (collision.gameObject.tag == "Espejo_45")
 		{
-			//Cambia de dirección 90 grados hacia arriba o hacia abajo dependiendo la dirección del espejo
-
+			if (velx == 0) {
+				velx = -velz;
+				velz = 0;
+			}else {
+				velz = -velx;
+				velx = 0;
+			}
+		}
+		if (collision.gameObject.tag == "Espejo_315")
+		{
+			if (velx == 0) {
+				velx = velz;
+				velz = 0;
+			}else {
+				velz = velx;
+				velx = 0;
+			}
 		}
 
 

@@ -10,7 +10,12 @@ public class DestruirObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
+		if(transform.position == new Vector3(18,2,-10) || transform.position == new Vector3(18,2,10) || transform.position == new Vector3(-10,2,-10) || transform.position == new Vector3(-10,2,10) ){
+			Destroy (gameObject);
+		}
+
+
 	}
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Laser") {
