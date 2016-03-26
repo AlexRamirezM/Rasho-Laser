@@ -133,7 +133,9 @@ public class ConstructorControl : MonoBehaviour {
 				if (posact.z <= -12) {
 					posact.z=-10;
 				}
-				Instantiate (Espejo_45, posact, Quaternion.identity);
+				Vector3 qua =new Vector3(0,1,0);
+				Instantiate (Espejo_45, posact, Quaternion.AngleAxis(45f,qua));
+
 
 			}
 
@@ -171,7 +173,8 @@ public class ConstructorControl : MonoBehaviour {
 				if (posact.z <= -12) {
 					posact.z=-10;
 				}
-				Instantiate (Espejo_315, posact, Quaternion.identity);
+				Vector3 qua =new Vector3(0,1,0);
+				Instantiate (Espejo_315, posact, Quaternion.AngleAxis(315f,qua));
 
 			}
 
