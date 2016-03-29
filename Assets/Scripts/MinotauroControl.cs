@@ -11,7 +11,7 @@ public class MinotauroControl : MonoBehaviour {
 	public Text resptext;
 	// Use this for initialization
 	Rigidbody rigidbody;
-	Quaternion rot = new Quaternion ();
+	public Quaternion rot = new Quaternion ();
 	public GameObject Laserbomb;
 
 	private Text TimeText;
@@ -47,6 +47,7 @@ public class MinotauroControl : MonoBehaviour {
 				animtime -= Time.deltaTime;
 				if (animtime <= 0) {
 					anim.Play ("Idle_2");
+
 				}
 
 			} else {
