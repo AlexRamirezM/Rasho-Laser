@@ -9,6 +9,7 @@ public class ConstructorControl : MonoBehaviour {
 	private float inmunity=0;
 	private float animtime;
 	public Animation anim;
+	private NetworkView nw;
 
 	int unav=1;
 		public Text resptext;
@@ -26,6 +27,7 @@ public class ConstructorControl : MonoBehaviour {
 		void Start () {
 			rigidbody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animation>();
+		nw= GetComponent<NetworkView>();
 		}
 
 		// Update is called once per frame
@@ -37,6 +39,7 @@ public class ConstructorControl : MonoBehaviour {
 
 
 		//Aqui se pone todo lo que pueda hacer mientras está vivo
+		if (nw.isMine) {
 			if (respawntime <=0) {
 			resptext.text = " ";
 			unav = 1;
@@ -199,7 +202,7 @@ public class ConstructorControl : MonoBehaviour {
 		}
 
 
-
+		}
 		}
 
 

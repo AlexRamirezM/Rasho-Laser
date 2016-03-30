@@ -52,11 +52,13 @@
      <Compile Include="Assets\Scripts\DestroyBomb.cs" />
      <Compile Include="Assets\Scripts\DestruirObject.cs" />
      <Compile Include="Assets\Scripts\EditorGrid.cs" />
+     <Compile Include="Assets\Scripts\IniciarGame.cs" />
      <Compile Include="Assets\Scripts\LaserMov.cs" />
      <Compile Include="Assets\Scripts\LaserMov2.cs" />
      <Compile Include="Assets\Scripts\LaserMov3.cs" />
      <Compile Include="Assets\Scripts\LaserMov4.cs" />
      <Compile Include="Assets\Scripts\MinotauroControl.cs" />
+     <Compile Include="Assets\Scripts\Server.cs" />
      <Compile Include="Assets\Scripts\SpawnerT1.cs" />
      <Compile Include="Assets\Scripts\Tiempo.cs" />
      <None Include="Assets\Assest store\Gem\Shaders\Gem.shader" />
