@@ -12,7 +12,7 @@ public class ConstructorControl : MonoBehaviour {
 	private NetworkView nw;
 
 	int unav=1;
-		public Text resptext;
+		//public Text resptext;
 		// Use this for initialization
 		Rigidbody rigidbody;
 		private Quaternion rot = new Quaternion ();
@@ -41,7 +41,7 @@ public class ConstructorControl : MonoBehaviour {
 		//Aqui se pone todo lo que pueda hacer mientras está vivo
 		if (nw.isMine) {
 			if (respawntime <=0) {
-			resptext.text = " ";
+			//resptext.text = " ";
 			unav = 1;
 				float movh = Input.GetAxis ("Horizontal");
 				float movv = Input.GetAxis ("Vertical");
@@ -98,7 +98,7 @@ public class ConstructorControl : MonoBehaviour {
 				if (posact.z <= -12) {
 					posact.z=-10;
 				}
-				Instantiate (CuboDestructible, posact, Quaternion.identity);
+				Network.Instantiate (CuboDestructible, posact, Quaternion.identity,0);
 
 			}
 
@@ -137,7 +137,7 @@ public class ConstructorControl : MonoBehaviour {
 					posact.z=-10;
 				}
 				Vector3 qua =new Vector3(0,1,0);
-				Instantiate (Espejo_45, posact, Quaternion.AngleAxis(45f,qua));
+					Network.Instantiate (Espejo_45, posact, Quaternion.AngleAxis(45f,qua),0);
 
 
 			}
@@ -177,7 +177,7 @@ public class ConstructorControl : MonoBehaviour {
 					posact.z=-10;
 				}
 				Vector3 qua =new Vector3(0,1,0);
-				Instantiate (Espejo_315, posact, Quaternion.AngleAxis(315f,qua));
+					Network.Instantiate (Espejo_315, posact, Quaternion.AngleAxis(315f,qua),0);
 
 			}
 
@@ -193,18 +193,17 @@ public class ConstructorControl : MonoBehaviour {
 				}
 
 				float redo = Mathf.Round (respawntime);
-				resptext.text = redo.ToString ();
+				//resptext.text = redo.ToString ();
 			}
 
 		if (inmunity >0) {
 			inmunity -= Time.deltaTime;
-			resptext.text = "Inmunity";
+			//resptext.text = "Inmunity";
 		}
 
 
 		}
 		}
-
 
 		void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Laser" && unav==1 && inmunity <=0) {
@@ -213,7 +212,7 @@ public class ConstructorControl : MonoBehaviour {
 
 				unav = 0;
 
-				resptext.text = respawntime.ToString ();
+				//resptext.text = respawntime.ToString ();
 
 			anim.Play ("Die");
 

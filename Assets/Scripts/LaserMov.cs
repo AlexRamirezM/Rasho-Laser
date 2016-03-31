@@ -2,15 +2,19 @@
 using System.Collections;
 
 public class LaserMov : MonoBehaviour {
-	private float velz = 0;
-	private float velx = 20;
+	public float velz = 0;
+	public float velx = 20;
+
+
 	Quaternion rot = new Quaternion ();
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
+
+
+
 	void Update () {
 		Vector3 mov = new Vector3 (velx,0,velz);
 		if (velx == 0) {

@@ -13,7 +13,7 @@ public class MinotauroControl : MonoBehaviour {
 	Rigidbody rigidbody;
 
 	private NetworkView nw;
-	public Quaternion rot = new Quaternion ();
+	private Quaternion rot = new Quaternion ();
 	public GameObject Laserbomb;
 
 	private Text TimeText;
@@ -38,7 +38,7 @@ public class MinotauroControl : MonoBehaviour {
 
 		if (nw.isMine) {
 			if (respawntime <= 0) {
-				resptext.text = " ";
+				//resptext.text = " ";
 				unav = 1;
 				float movh = Input.GetAxis ("Horizontal");
 				float movv = Input.GetAxis ("Vertical");
@@ -99,7 +99,8 @@ public class MinotauroControl : MonoBehaviour {
 					if (posact.z <= -12) {
 						posact.z = -10;
 					}
-					Instantiate (Laserbomb, posact, Quaternion.identity);
+					Vector3 qua =new Vector3(1,0,0);
+					Network.Instantiate (Laserbomb, posact, Quaternion.AngleAxis(90,qua),0);
 				
 
 
@@ -120,11 +121,11 @@ public class MinotauroControl : MonoBehaviour {
 				}
 
 				float redo = Mathf.Round (respawntime);
-				resptext.text = redo.ToString ();
+				//resptext.text = redo.ToString ();
 			}
 			if (inmunity >= 0) {
 				inmunity -= Time.deltaTime;
-				resptext.text = "Inmunity";
+				//resptext.text = "Inmunity";
 			} 
 		}
 	}
@@ -135,7 +136,7 @@ public class MinotauroControl : MonoBehaviour {
 
 			unav= 0;
 
-			resptext.text = respawntime.ToString ();
+			//resptext.text = respawntime.ToString ();
 			anim.Play ("Die");
 
 

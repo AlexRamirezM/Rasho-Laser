@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Tiempo : MonoBehaviour {
 
 	public Text TimeText;
-	private float tiempo=0f;
+	public float tiempo=0f;
 	public int Minutos, segundos;
 
 	// Use this for initialization
@@ -16,7 +16,7 @@ public class Tiempo : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		
 		tiempo += Time.deltaTime;
 		Minutos = (int)tiempo / 60;
 		segundos = (int)tiempo - (Minutos * 60);

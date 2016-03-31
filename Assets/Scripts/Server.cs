@@ -1,41 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Server : MonoBehaviour {
+	
 
+
+	private int iniciopartida=0;
 	public bool useNat = false;
-	public int numUsarios = 16;
+	private int numconectados=0;
+	private int numUsarios = 2;
+	public Text textnumconectados;
+
 
 	public InputField Puerto;
 	public InputField IP;
 	public InputField NombreUsuario;
+
+
 	public Toggle Chattoggle;
 	public Text Datosdeusuario;
 	//Guis
-	public GameObject GuiOffline;
-	public GameObject GuiChat;
-	public GameObject IngameGuiMenu;
-	public GameObject BotonIngameGuiMenu;
+	public GameObject Minotaur;
+	public GameObject MinoConstructor;
+
 
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
-	}
+		CrearServidor ();
 
+
+
+	}
+	void Update(){
+		//Iniciar el juego en el momento que hayan x cantidad de personas conectadas
+		if (numconectados==numUsarios && iniciopartida==0) {
+			iniciopartida = 1;
+			SceneManager.LoadScene ("Game");
+		}
+		numconectados=Network.connections.Length+1;
+		//Mostrar al jugador la cantidad de jugadores estan conectadas
+		textnumconectados.text = numconectados.ToString();
+
+	}
 	public void CrearServidor(){
 		if(Network.peerType == NetworkPeerType.Disconnected){
-			if(Puerto.text != ""){
-				Network.InitializeServer(numUsarios, int.Parse(Puerto.text), useNat);
+			
+				Network.InitializeServer(numUsarios, 9000, useNat);
 				foreach(GameObject go in FindObjectsOfType(typeof(GameObject)) as GameObject[]){
 					go.SendMessage("OnNetworkLoadedLevel", SendMessageOptions.DontRequireReceiver);
 				}
-			}else{
-				print ("Falta Puerto");
-			}
+
 		}
+		 
 
 	}
 	private void OnServerInitialized(){
+		
 		print ("Servidor iniciado correctamente");
 //		GuiOffline.SetActive (false);
 //		if (NombreUsuario.text != "")
@@ -51,8 +73,14 @@ public class Server : MonoBehaviour {
 	private void OnConnectedToServer(){
 		foreach(GameObject go in FindObjectsOfType(typeof(GameObject)) as GameObject[]){
 			go.SendMessage("OnNetworkLoadedLevel", SendMessageOptions.DontRequireReceiver);
+
+			Network.Instantiate (Minotaur, new Vector3 (-10, 0, -10), Quaternion.identity, 0);
 		}
+
+
+
 		print ("Coneccion Correcta");
+
 //		GuiOffline.SetActive (false);
 //		if (NombreUsuario.text != "")
 //			Variables.Username = NombreUsuario.text;
@@ -64,7 +92,7 @@ public class Server : MonoBehaviour {
 
 	public void Conecctarse(){
 		if (Network.peerType == NetworkPeerType.Disconnected)
-			Network.Connect (IP.text, int.Parse(Puerto.text));
+			Network.Connect (IP.text, 9000);
 	}
 
 //	void Update(){
