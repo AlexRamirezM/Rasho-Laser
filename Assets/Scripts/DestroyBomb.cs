@@ -11,20 +11,20 @@ public class DestroyBomb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if(transform.position == new Vector3(18,2,-10) || transform.position == new Vector3(18,2,10) || transform.position == new Vector3(-10,2,-10) || transform.position == new Vector3(-10,2,10) ){
-			Destroy (gameObject);
-		}
 
 		if (tiempo < 0) {
 			
-			Network.Instantiate (Laser1, transform.position, Quaternion.identity,0);
+//			Network.Instantiate (Laser1, transform.position, Quaternion.identity,0);
+			Instantiate(Laser1, transform.position, Quaternion.identity);
 
-			Network.Instantiate (Laser2, transform.position, Quaternion.identity,0);
+//			Network.Instantiate (Laser2, transform.position, Quaternion.identity,0);
+			Instantiate (Laser2, transform.position, Quaternion.identity);
 
-			Network.Instantiate (Laser3, transform.position, Quaternion.identity,0);
+//			Network.Instantiate (Laser3, transform.position, Quaternion.identity,0);
+			Instantiate (Laser3, transform.position, Quaternion.identity);
 
-			Network.Instantiate (Laser4, transform.position, Quaternion.identity,0);
+//			Network.Instantiate (Laser4, transform.position, Quaternion.identity,0);
+			Instantiate (Laser4, transform.position, Quaternion.identity);
 
 			Destroy (gameObject);
 		}

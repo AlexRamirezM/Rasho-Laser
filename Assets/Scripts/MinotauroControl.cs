@@ -3,144 +3,281 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class MinotauroControl : MonoBehaviour {
-	private float vel = 10;
-	float respawntime=5;
-	float inmunity=0;
-	int unav=1;
-	float animtime;
+	
+	float respawntime = 0;
+	float inmunity = 0;
+	int unav = 1;
 	public Text resptext;
-	// Use this for initialization
-	Rigidbody rigidbody;
 
 	private NetworkView nw;
-	private Quaternion rot = new Quaternion ();
+	Quaternion Rotation = Quaternion.identity;
 	public GameObject Laserbomb;
 
 	private Text TimeText;
-	private float tiempo=0f;
+	private float tiempo = 0f;
 	private int Minutos, segundos;
 
-	public Animation anim;
+	Animator Anim_Minotauro;
+	int Attack_Hash = Animator.StringToHash ("Attack");		// String a Int = Menos costo computacional
+	int Walk_Hash = Animator.StringToHash ("Walk");
+
+	Rigidbody rigidbody;
+
+	public AnimatorStateInfo Animator_State; 
+	int AttackState = Animator.StringToHash("Base Layer.Attack");
+
+	Vector3 Posicion_Actual;
+
+	Vector3 Position;
+	float Speed = 5.0f;				//Velocidad de movimiento Minotauro
+	float Mov_H;
+	float Mov_V;
+
+	public GameObject FC;
+	public GameObject BC;
+	public GameObject LC;
+	public GameObject RC;
+
+	public Forward_Check F_Check_Script;
+	public Back_Check B_Check_Script;
+	public Left_Check L_Check_Script;
+	public Right_Check R_Check_Script;
+
+	public bool W_Block, A_Block, S_Block, D_Block;
 
 	void Start () {
+		
 		rigidbody = GetComponent<Rigidbody>();
-		anim = GetComponent<Animation>();
-		nw= GetComponent<NetworkView>();
+		nw = GetComponent<NetworkView>();
+		Anim_Minotauro = GetComponent<Animator> ();
+		Position = transform.position;
+
+		FC = GameObject.FindGameObjectWithTag ("FC");
+		F_Check_Script = FC.GetComponent<Forward_Check> ();
+
+		BC = GameObject.FindGameObjectWithTag ("BC");
+		B_Check_Script = BC.GetComponent<Back_Check> ();
+
+		LC = GameObject.FindGameObjectWithTag ("LC");
+		L_Check_Script = LC.GetComponent<Left_Check> ();
+
+		RC = GameObject.FindGameObjectWithTag ("RC");
+		R_Check_Script = RC.GetComponent<Right_Check> ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		tiempo += Time.deltaTime;
-		Minutos = (int)tiempo / 60;
-		segundos = (int)tiempo - (Minutos * 60);
+//		tiempo += Time.deltaTime;
+//		Minutos = (int)tiempo / 60;
+//		segundos = (int)tiempo - (Minutos * 60);
 
+		Check_Wall ();			//			Bloquea el movimiento en las direcciones donde colisione con bloques
 
-		if (nw.isMine) {
-			if (respawntime <= 0) {
-				//resptext.text = " ";
-				unav = 1;
-				float movh = Input.GetAxis ("Horizontal");
-				float movv = Input.GetAxis ("Vertical");
+		Mov_H = Input.GetAxis ("Horizontal");
+		Mov_V = Input.GetAxis ("Vertical");
+		Animator_State = Anim_Minotauro.GetCurrentAnimatorStateInfo (0);		// Obtiene el estado acutual del Animation Controller
 
-				Vector3 mov = new Vector3 (movh, 0, movv);
-				transform.position += mov * Time.deltaTime * vel;
+//		if (nw.isMine) {
+//		if (respawntime <= 0) {
 
-				if (movh == 0 && movv == 0) {
-					animtime -= Time.deltaTime;
-					if (animtime <= 0) {
-						anim.Play ("Idle_2");
+		Movimiento ();
 
-					}
+		if( (Mov_H == 0 && Mov_V == 0) ) {
+			Anim_Minotauro.SetBool ("Walk", false);
+		}
+			
 
-				} else {
-					animtime = 2;
-					rot.SetLookRotation (mov);
-					transform.rotation = rot;
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			
+			Anim_Minotauro.SetTrigger ("Attack");
+			Vector3 Orientacion = new Vector3 (1, 0, 0);
+			Instantiate (Laserbomb, Position, Quaternion.AngleAxis (90, Orientacion));
+		}
+			
+//				Posicion_Actual = transform.position;
+//				int sx = 0, sz = 0;
+//				if (Rot.y == 0) {
+//					sz = 2;
+//				} 
+//				if (Rot.y == 1) {
+//					sz = -2;
+//				} 
+//				if (Rot.y < 1 && Rot.y > 0) {
+//					sx = 2;
+//				} 
+//				if (Rot.y < 0) {
+//					sx = -2;
+//				} 
+//
+//				Posicion_Actual.x = (Mathf.Round (transform.position.x / 2) * 2) + sx;
+//				Posicion_Actual.z = (Mathf.Round (transform.position.z / 2) * 2) + sz;
+//				Posicion_Actual.y = 2;
+//
+//				if (Posicion_Actual.x >= 20) {
+//					Posicion_Actual.x = 18;
+//				}
+//				if (Posicion_Actual.x <= -12) {
+//					Posicion_Actual.x = -10;
+//				}
+//				if (Posicion_Actual.z >= 12) {
+//					Posicion_Actual.z = 10;
+//				}
+//				if (Posicion_Actual.z <= -12) {
+//					Posicion_Actual.z = -10;
+		//				}Check_Wall ()
+//				Vector3 qua = new Vector3 (1, 0, 0);
+//				Network.Instantiate (Laserbomb, posact, Quaternion.AngleAxis(90,qua),0);
+//			}
 
-
-
-					anim.Play ("RunCycle");
-				}
-
-
-				if (Input.GetKeyDown (KeyCode.Q)) {
-					anim.Play ("Attack_2");
-					animtime = 2;
-					Vector3 posact = transform.position;
-					int sx = 0, sz = 0;
-					if (rot.y == 0) {
-						sz = 2;
-					} 
-					if (rot.y == 1) {
-						sz = -2;
-					} 
-					if (rot.y < 1 && rot.y > 0) {
-						sx = 2;
-					} 
-					if (rot.y < 0) {
-						sx = -2;
-					} 
-
-
-					posact.x = (Mathf.Round (transform.position.x / 2) * 2) + sx;
-					posact.z = (Mathf.Round (transform.position.z / 2) * 2) + sz;
-					posact.y = 2;
-
-					if (posact.x >= 20) {
-						posact.x = 18;
-					}
-					if (posact.x <= -12) {
-						posact.x = -10;
-					}
-					if (posact.z >= 12) {
-						posact.z = 10;
-					}
-					if (posact.z <= -12) {
-						posact.z = -10;
-					}
-					Vector3 qua =new Vector3(1,0,0);
-					Network.Instantiate (Laserbomb, posact, Quaternion.AngleAxis(90,qua),0);
-				
-
-
-				}
-				if (Input.GetKeyDown (KeyCode.R)) {
-					anim.Play ("Attack_3");
-					animtime = 2;
-				}
-
-
-			} else {
-				respawntime -= Time.deltaTime;
-				if (respawntime <= 0) {
-					transform.position = (new Vector3 (-10, 0, -10));
-					inmunity = 2;
-					respawntime = 0;
-
-				}
-
-				float redo = Mathf.Round (respawntime);
-				//resptext.text = redo.ToString ();
-			}
-			if (inmunity >= 0) {
-				inmunity -= Time.deltaTime;
+//			} else {
+//				
+//				respawntime -= Time.deltaTime;
+//				if (respawntime <= 0) {
+//					transform.position = (new Vector3 (-10, 0, -10));
+//					inmunity = 2;
+//					respawntime = 0;
+//
+//				}
+//
+//				float redo = Mathf.Round (respawntime);
+//				//resptext.text = redo.ToString ();
+//			}
+//			if (inmunity >= 0) {
+//				inmunity -= Time.deltaTime;
 				//resptext.text = "Inmunity";
-			} 
+//			}
+		}
+
+	void Movimiento () {
+	
+		if (Animator_State.nameHash != AttackState) {		// Si se esta realizando la animacion de ataque se bloquea el movimiento
+
+			if (Input.GetKey (KeyCode.A) && transform.position == Position && Position.x != -8 && A_Block == false) {
+				transform.eulerAngles = new Vector3 (0, 270, 0);
+				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
+				Position = Position + new Vector3 (-2, 0, 0);
+			}
+
+			if (Input.GetKey (KeyCode.S) && transform.position == Position && Position.z != -8 && S_Block == false) {
+				transform.eulerAngles = new Vector3 (0, 180, 0);
+				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
+				Position = Position + new Vector3 (0, 0, -2);
+			}
+
+			if (Input.GetKey (KeyCode.D) && transform.position == Position && Position.x != 8 && D_Block == false) {
+				transform.eulerAngles = new Vector3 (0, 90, 0);
+				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
+				Position = Position + new Vector3 (2, 0, 0);
+			}
+
+			if (Input.GetKey (KeyCode.W) && transform.position == Position && Position.z != 8 && W_Block == false) {
+				transform.eulerAngles = new Vector3 (0, 0, 0);
+				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
+				Position = Position + new Vector3 (0, 0, 2);
+			}
+
+			transform.position = Vector3.MoveTowards (transform.position, Position, Time.deltaTime * Speed);
+
 		}
 	}
-	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.tag == "Laser" && unav==1 && inmunity<=0) {
-			//Intervalotime debe ser 1 + el numero de minutos transcurridos.
-			respawntime = 1f+Minutos*1.5f;;
 
-			unav= 0;
+	void Check_Wall () {
+	
+		int Direction = (int) transform.eulerAngles.y;		// Convierte de FLOAT A INT para poder ser evaluado en el Switch
 
-			//resptext.text = respawntime.ToString ();
-			anim.Play ("Die");
+		Clean_WASD_Block ();			/// Limpia los bloqueos de las teclas WASD 
 
+		if (F_Check_Script.Block_Forward == true) {
 
+			switch (Direction) {
+			case 0:						// Se encuentra viendo hacia ARRIBA
+				W_Block = true;
+				break;
+			case 270:					// Se encuentre viendo hacia la IZQUIERDA
+				A_Block = true;
+				break;
+			case 180:					// Se encuetra viendo hacia ABAJO
+				S_Block = true;
+				break;
+			case 90:					// Se encuentra viendo hacia la DERECHA
+				D_Block = true;
+				break;
+			}
+		}
+
+		if(B_Check_Script.Block_Back == true) {
+
+			switch (Direction) {
+			case 0:						// Se encuentra viendo hacia ARRIBA
+				W_Block = true;
+				break;
+			case 270:					// Se encuentre viendo hacia la IZQUIERDA
+				A_Block = true;
+				break;
+			case 180:					// Se encuetra viendo hacia ABAJO
+				S_Block = true;
+				break;
+			case 90:					// Se encuentra viendo hacia la DERECHA
+				D_Block = true;
+				break;
+			}
+		}
+
+		if(L_Check_Script.Block_Left == true) {
+
+			switch (Direction) {
+			case 0:					// Se encuentra viendo hacia ARRIBA
+				A_Block = true;
+				break;
+			case 270:				// Se encuentre viendo hacia la IZQUIERDA
+				S_Block = true;
+				break;
+			case 180:				// Se encuetra viendo hacia ABAJO
+				D_Block = true;
+				break;
+			case 90:				// Se encuentra viendo hacia la DERECHA
+				W_Block = true;
+				break;
+			}
+		}
+
+		if (R_Check_Script.Block_Right == true) {
+
+			switch (Direction) {
+			case 0:					// Se encuentra viendo hacia ARRIBA
+				D_Block = true;
+				break;
+			case 270:				// Se encuentre viendo hacia la IZQUIERDA
+				W_Block = true;
+				break;
+			case 180:				// Se encuetra viendo hacia ABAJO
+				A_Block = true;
+				break;
+			case 90:				// Se encuentra viendo hacia la DERECHA
+				S_Block = true;
+				break;
+			}
 		}
 	}
 
+	void Clean_WASD_Block ()
+	{
+		W_Block = false;
+		A_Block = false;
+		S_Block = false;
+		D_Block = false;
+	}
 }
+//		}
+	
+//		if (collision.gameObject.tag == "Laser" && unav==1 && inmunity<=0) {
+//			//Intervalotime debe ser 1 + el numero de minutos transcurridos.
+//			respawntime = 1f+Minutos*1.5f;;
+//
+//			unav= 0;
+//
+//			//resptext.text = respawntime.ToString ();
+//
+//

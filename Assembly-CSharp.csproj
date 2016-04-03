@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1DB0AC46-FEDC-9189-979F-8201B5FA9569}</ProjectGuid>
+    <ProjectGuid>{101B5A6B-A227-8DB3-9600-EDC38E02C947}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -38,16 +38,20 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+      <HintPath>/Applications/Programación/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+      <HintPath>/Applications/Programación/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Assest store\GemExample\Scripts\DemoTimeOfDay.cs" />
      <Compile Include="Assets\Assest store\GemExample\Scripts\Orbit.cs" />
      <Compile Include="Assets\Assest store\Minotaur\Script\RotateObject.cs" />
+     <Compile Include="Assets\Scripts\Collision_Check\Back_Check.cs" />
+     <Compile Include="Assets\Scripts\Collision_Check\Forward_Check.cs" />
+     <Compile Include="Assets\Scripts\Collision_Check\Left_Check.cs" />
+     <Compile Include="Assets\Scripts\Collision_Check\Right_Check.cs" />
      <Compile Include="Assets\Scripts\ConstructorControl.cs" />
      <Compile Include="Assets\Scripts\DestroyBomb.cs" />
      <Compile Include="Assets\Scripts\DestruirObject.cs" />
@@ -58,15 +62,16 @@
      <Compile Include="Assets\Scripts\LaserMov3.cs" />
      <Compile Include="Assets\Scripts\LaserMov4.cs" />
      <Compile Include="Assets\Scripts\MinotauroControl.cs" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Server.cs" />
      <Compile Include="Assets\Scripts\SpawnerT1.cs" />
      <Compile Include="Assets\Scripts\Tiempo.cs" />
      <None Include="Assets\Assest store\Gem\Shaders\Gem.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Programación/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>/Applications/Programación/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

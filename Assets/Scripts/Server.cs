@@ -10,7 +10,7 @@ public class Server : MonoBehaviour {
 	private int iniciopartida=0;
 	public bool useNat = false;
 	private int numconectados=0;
-	private int numUsarios = 2;
+	private int numUsarios = 1;
 	public Text textnumconectados;
 
 

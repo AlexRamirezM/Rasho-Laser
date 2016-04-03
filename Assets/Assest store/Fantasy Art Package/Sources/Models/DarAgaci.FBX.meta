@@ -3,11 +3,30 @@ guid: 40e2da77a1284fd4c98783aa90d1370e
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Box02
+    100002: Box03
+    100004: //RootNode
+    100006: Object01
+    100008: Torus01
+    400000: Box02
+    400002: Box03
+    400004: //RootNode
+    400006: Object01
+    400008: Torus01
+    2300000: Box02
+    2300002: Box03
+    2300004: Object01
+    2300006: Torus01
+    3300000: Box02
+    3300002: Box03
+    3300004: Object01
+    3300006: Torus01
     4300000: Box02
     4300002: Box03
     4300004: Torus01
     4300006: Cylinder01
     4300008: Object01
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3
