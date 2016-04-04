@@ -5,14 +5,12 @@ public class LaserMov : MonoBehaviour {
 	public float velz = 0;
 	public float velx = 20;
 
-
 	Quaternion rot = new Quaternion ();
 	// Use this for initialization
 	void Start () {
 	}
 	
 	// Update is called once per frame
-
 
 
 	void Update () {
@@ -30,7 +28,6 @@ public class LaserMov : MonoBehaviour {
 		}
 
 		transform.position += mov*Time.deltaTime;
-
 
 		rot.SetLookRotation (mov);
 		transform.rotation = rot;

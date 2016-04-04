@@ -33,6 +33,11 @@ public class MinotauroControl : MonoBehaviour {
 	float Mov_H;
 	float Mov_V;
 
+	private GameObject Floor;
+	public Vector3 Floor_Scale;		// Se usa para tomar las dimensiones del FLOOR y determinar los limites de movimiento del minotauro
+	float Floor_Scale_X;
+	float Floor_Scale_Z;
+
 	public GameObject FC;
 	public GameObject BC;
 	public GameObject LC;
@@ -64,6 +69,11 @@ public class MinotauroControl : MonoBehaviour {
 		RC = GameObject.FindGameObjectWithTag ("RC");
 		R_Check_Script = RC.GetComponent<Right_Check> ();
 
+		GameObject Floor = GameObject.Find ("Floor");
+		Floor_Scale = Floor.transform.localScale;
+		Floor_Scale_X = (Floor_Scale.x / 2) - 1;
+		Floor_Scale_Z = (Floor_Scale.z / 2) - 1;
+
 	}
 	
 	// Update is called once per frame
@@ -93,7 +103,7 @@ public class MinotauroControl : MonoBehaviour {
 			
 			Anim_Minotauro.SetTrigger ("Attack");
 			Vector3 Orientacion = new Vector3 (1, 0, 0);
-			Instantiate (Laserbomb, Position, Quaternion.AngleAxis (90, Orientacion));
+			Instantiate (Laserbomb, new Vector3(Position.x, Position.y + 1, Position.z), Quaternion.AngleAxis (90, Orientacion));
 		}
 			
 //				Posicion_Actual = transform.position;
@@ -154,25 +164,25 @@ public class MinotauroControl : MonoBehaviour {
 	
 		if (Animator_State.nameHash != AttackState) {		// Si se esta realizando la animacion de ataque se bloquea el movimiento
 
-			if (Input.GetKey (KeyCode.A) && transform.position == Position && Position.x != -8 && A_Block == false) {
+			if (Input.GetKey (KeyCode.A) && transform.position == Position && Position.x != -Floor_Scale_X && A_Block == false) {
 				transform.eulerAngles = new Vector3 (0, 270, 0);
 				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
 				Position = Position + new Vector3 (-2, 0, 0);
 			}
 
-			if (Input.GetKey (KeyCode.S) && transform.position == Position && Position.z != -8 && S_Block == false) {
+			if (Input.GetKey (KeyCode.S) && transform.position == Position && Position.z != -Floor_Scale_Z && S_Block == false) {
 				transform.eulerAngles = new Vector3 (0, 180, 0);
 				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
 				Position = Position + new Vector3 (0, 0, -2);
 			}
 
-			if (Input.GetKey (KeyCode.D) && transform.position == Position && Position.x != 8 && D_Block == false) {
+			if (Input.GetKey (KeyCode.D) && transform.position == Position && Position.x != Floor_Scale_X && D_Block == false) {
 				transform.eulerAngles = new Vector3 (0, 90, 0);
 				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
 				Position = Position + new Vector3 (2, 0, 0);
 			}
 
-			if (Input.GetKey (KeyCode.W) && transform.position == Position && Position.z != 8 && W_Block == false) {
+			if (Input.GetKey (KeyCode.W) && transform.position == Position && Position.z != Floor_Scale_Z && W_Block == false) {
 				transform.eulerAngles = new Vector3 (0, 0, 0);
 				Anim_Minotauro.SetBool ("Walk", true);		// Animacion de RunCycle
 				Position = Position + new Vector3 (0, 0, 2);
