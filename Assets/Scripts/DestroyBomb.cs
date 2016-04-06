@@ -4,8 +4,14 @@ using System.Collections;
 public class DestroyBomb : MonoBehaviour {
 	private float tiempo;
 	public GameObject Laser1, Laser2, Laser3, Laser4;
+	public int Angulo;
+	public int Velocidad_Rasho = 20;
+	public Vector3 Direccion;
+	public int i = 0;
+
 	// Use this for initialization
 	void Start () {
+
 		tiempo = 3;
 	}
 	
@@ -13,21 +19,33 @@ public class DestroyBomb : MonoBehaviour {
 	void Update () {
 
 		if (tiempo < 0) {
-			
-//			Network.Instantiate (Laser1, transform.position, Quaternion.identity,0);
-			Instantiate(Laser1, transform.position, Quaternion.identity);
 
-//			Network.Instantiate (Laser2, transform.position, Quaternion.identity,0);
-			Instantiate (Laser2, transform.position, Quaternion.identity);
+			while(i < 4) {
+				
+//				Network.Instantiate (Laser1, transform.position, Quaternion.identity,0);
+				switch (i) {
+				case 0:
+					Instantiate (Laser1, transform.position, Quaternion.Euler (0, 0, 0));
+					break;
+				case 1:
+					Instantiate (Laser1, transform.position, Quaternion.Euler(0, 90, 0));
+					break;
+				case 2:
+					Instantiate (Laser1, transform.position, Quaternion.Euler (0, 180, 0));
+					break;
+				case 3:
+					Instantiate (Laser1, transform.position, Quaternion.Euler (0, 270, 0));
+					break;
+				}
 
-//			Network.Instantiate (Laser3, transform.position, Quaternion.identity,0);
-			Instantiate (Laser3, transform.position, Quaternion.identity);
+				i = i + 1;
 
-//			Network.Instantiate (Laser4, transform.position, Quaternion.identity,0);
-			Instantiate (Laser4, transform.position, Quaternion.identity);
+			}
 
-			Destroy (gameObject);
-		}
+			Destroy (gameObject	);
+
+					}
+
 		tiempo -= Time.deltaTime;
 	}
 	void OnCollisionEnter(Collision collision) {

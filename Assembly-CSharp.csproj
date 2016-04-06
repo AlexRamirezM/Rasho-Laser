@@ -58,9 +58,6 @@
      <Compile Include="Assets\Scripts\EditorGrid.cs" />
      <Compile Include="Assets\Scripts\IniciarGame.cs" />
      <Compile Include="Assets\Scripts\LaserMov.cs" />
-     <Compile Include="Assets\Scripts\LaserMov2.cs" />
-     <Compile Include="Assets\Scripts\LaserMov3.cs" />
-     <Compile Include="Assets\Scripts\LaserMov4.cs" />
      <Compile Include="Assets\Scripts\MinotauroControl.cs" />
      <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Server.cs" />

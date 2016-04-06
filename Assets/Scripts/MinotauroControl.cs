@@ -21,8 +21,6 @@ public class MinotauroControl : MonoBehaviour {
 	int Attack_Hash = Animator.StringToHash ("Attack");		// String a Int = Menos costo computacional
 	int Walk_Hash = Animator.StringToHash ("Walk");
 
-	Rigidbody rigidbody;
-
 	public AnimatorStateInfo Animator_State; 
 	int AttackState = Animator.StringToHash("Base Layer.Attack");
 
@@ -52,7 +50,6 @@ public class MinotauroControl : MonoBehaviour {
 
 	void Start () {
 		
-		rigidbody = GetComponent<Rigidbody>();
 		nw = GetComponent<NetworkView>();
 		Anim_Minotauro = GetComponent<Animator> ();
 		Position = transform.position;

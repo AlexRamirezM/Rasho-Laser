@@ -2,48 +2,69 @@
 using System.Collections;
 
 public class LaserMov : MonoBehaviour {
-	public float velz = 0;
-	public float velx = 20;
+	private float Vel_X;
+	private float Vel_Z;
 
-	Quaternion rot = new Quaternion ();
+	public int Velocidad_Rasho = 20;
+	public Vector3 Desplazamiento;
+	private float Direccion;
+
+	Quaternion Rotacion = new Quaternion ();
+
 	// Use this for initialization
 	void Start () {
+
+		Direccion = transform.eulerAngles.y;
+
+		if (Direccion == 0) {
+		
+			Vel_X = 0;
+			Vel_Z = Velocidad_Rasho;
+		
+		} else if (Direccion == 90) {
+		
+			Vel_X = Velocidad_Rasho;
+			Vel_Z = 0;
+
+		} else if (Direccion > 170 && Direccion < 190) {
+
+			Vel_X = 0;
+			Vel_Z = -Velocidad_Rasho;
+	
+		} else if (Direccion == 270) {
+
+			Vel_X = -Velocidad_Rasho;
+			Vel_Z = 0;
+		}
+			
+
 	}
 	
 	// Update is called once per frame
 
 
 	void Update () {
-		Vector3 mov = new Vector3 (velx,0,velz);
-		if (velx == 0) {
-			var encaja= transform.position;
-			encaja.x = Mathf.Round (encaja.x/2)*2;
-			transform.position = encaja;
-		}
-		if (velz == 0) {
-			var encaja= transform.position;
-			encaja.z = Mathf.Round (encaja.z/2)*2;
-			transform.position = encaja;
 
-		}
+		Desplazamiento = new Vector3 (Vel_X, 0, Vel_Z);
 
-		transform.position += mov*Time.deltaTime;
+		transform.position += Desplazamiento * Time.deltaTime;
 
-		rot.SetLookRotation (mov);
-		transform.rotation = rot;
+		Rotacion = Quaternion.LookRotation(Desplazamiento);
+
+		transform.rotation = Rotacion;
 
 	}
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Limiver")
 		{
-			velz = velz * (-1);
+			Vel_Z = Vel_Z * (-1);
 
 		}
 		if (collision.gameObject.tag == "Limihori")
 		{
 			
-			velx = velx * (-1);
+			Vel_X = Vel_X * (-1);
 		}
 		if (collision.gameObject.tag == "CuboDestructible" || collision.gameObject.tag == "Player" || collision.gameObject.tag == "CuboIndestructible")
 		{
@@ -52,28 +73,24 @@ public class LaserMov : MonoBehaviour {
 
 		if (collision.gameObject.tag == "Espejo_45")
 		{
-			if (velx == 0) {
-				velx = -velz;
-				velz = 0;
+			if (Vel_X == 0) {
+				Vel_X = -Vel_Z;
+				Vel_Z = 0;
 			}else {
-				velz = -velx;
-				velx = 0;
+				Vel_Z = -Vel_X;
+				Vel_X = 0;
 			}
 		}
 		if (collision.gameObject.tag == "Espejo_315")
 		{
-			if (velx == 0) {
-				velx = velz;
-				velz = 0;
+			if (Vel_X == 0) {
+				Vel_X = Vel_Z;
+				Vel_Z = 0;
 			}else {
-				velz = velx;
-				velx = 0;
+				Vel_Z = Vel_X;
+				Vel_X = 0;
 			}
 		}
-
-
-
-
-		}
+	}
 
 }
